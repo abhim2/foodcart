@@ -8,6 +8,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@azure/storage-blob": "^12.27.0",
     "@date-fns/tz": "catalog:",
     "@nextorders/schema": "workspace:*",
     "@nuxtjs/i18n": "catalog:",

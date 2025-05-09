@@ -1,19 +1,19 @@
+import { defineNuxtConfig } from 'nuxt/config'
+const process = require('process')
+
 export default defineNuxtConfig({
   modules: ['@nuxtjs/i18n', 'nuxt-auth-utils', '@vueuse/nuxt'],
   runtimeConfig: {
     locale: 'en',
     productsDirectory: '/products',
-    s3: {
-      bucket: '',
-      region: '',
-      endpoint: '',
-      accessKeyId: '',
-      secretAccessKey: '',
+    azure: {
+      connectionString: process.env.AZURE_STORAGE_CONNECTION_STRING,
+      containerName: process.env.AZURE_STORAGE_CONTAINER_NAME,
     },
-    redisUrl: '',
-    externalApiToken: '',
+    redisUrl: process.env.REDIS_URL || '',
+    externalApiToken: process.env.EXTERNAL_API_TOKEN || '',
     public: {
-      mediaUrl: '',
+      mediaUrl: process.env.NUXT_PUBLIC_MEDIA_URL || '',
     },
   },
   vite: {

@@ -30,7 +30,7 @@
     "release": "changelogen-monorepo --release --push",
     "build": "pnpm -r run build",
     "dev:web-app:compose": "docker compose -f ./docker/web-app/docker-compose.yaml up -d",
-    "dev:web-app": "pnpm -r --filter \"./apps/web-app\" dev",
+    "dev:web-app": "dotenv -e .env.local -- pnpm -r --filter \"./apps/web-app\" dev",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "clean": "pnpm -r run clean",

@@ -73,8 +73,10 @@ export default defineEventHandler(async (event) => {
           .toBuffer()
 
         const id = createId()
+        const storagePath = `${productsDirectory}/${mediaId}/${id}.${format}`.replace(/^\/+/, '')
+        const publicUrl = `${mediaUrl.replace(/\/+$/, '')}/${storagePath}`
 
-        await storage.setItemRaw(`${productsDirectory}/${mediaId}/${id}.${format}`, buffer)
+        await storage.setItemRaw(storagePath, buffer)
 
         items.push({
           id,
@@ -83,7 +85,7 @@ export default defineEventHandler(async (event) => {
           mediaId,
           size,
           format,
-          url: `${mediaUrl}${productsDirectory}/${mediaId}/${id}.${format}`,
+          url: publicUrl,
         })
 
         // Clear
@@ -99,7 +101,8 @@ export default defineEventHandler(async (event) => {
       if (media) {
         // Remove old images
         for (const item of media.items) {
-          await storage.removeItem(`${productsDirectory}/${item.mediaId}/${item.id}.${item.format}`)
+          const oldPath = `${productsDirectory}/${item.mediaId}/${item.id}.${item.format}`.replace(/^\/+/, '')
+          await storage.removeItem(oldPath)
         }
 
         await deleteMedia(media.id)
